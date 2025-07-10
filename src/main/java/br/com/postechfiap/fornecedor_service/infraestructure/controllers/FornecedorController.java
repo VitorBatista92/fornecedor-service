@@ -1,9 +1,6 @@
 package br.com.postechfiap.fornecedor_service.infraestructure.controllers;
 
-import br.com.postechfiap.fornecedor_service.application.interfaces.usecases.fornecedor.AtualizarFornecedorUseCase;
-import br.com.postechfiap.fornecedor_service.application.interfaces.usecases.fornecedor.BuscarFornecedorUseCase;
-import br.com.postechfiap.fornecedor_service.application.interfaces.usecases.fornecedor.CadastrarFornecedorUseCase;
-import br.com.postechfiap.fornecedor_service.application.interfaces.usecases.fornecedor.DeletarFornecedorUseCase;
+import br.com.postechfiap.fornecedor_service.application.interfaces.usecases.fornecedor.*;
 import br.com.postechfiap.fornecedor_service.domain.entities.Fornecedor;
 import br.com.postechfiap.fornecedor_service.infraestructure.dto.fornecedor.request.AtualizarFornecedorRequest;
 import br.com.postechfiap.fornecedor_service.infraestructure.dto.fornecedor.request.FornecedorRequest;
@@ -30,6 +27,7 @@ public class FornecedorController {
 
     private final CadastrarFornecedorUseCase cadastrarFornecedorUseCase;
     private final BuscarFornecedorUseCase buscarFornecedorUseCase;
+    private final BuscarFornecedorPorIdUseCase buscarFornecedorPorIdUseCase;
     private final AtualizarFornecedorUseCase atualizarFornecedorUseCase;
     private final DeletarFornecedorUseCase deletarFornecedorUseCase;
 
@@ -51,6 +49,12 @@ public class FornecedorController {
     @Operation(summary = "Buscar Fornecedor", description = "Buscar Fornecedor por nome.")
     public ResponseEntity<List<FornecedorResponse>> buscar(@RequestParam(required = false) String nome) {
         return ResponseEntity.ok(buscarFornecedorUseCase.execute(nome));
+    }
+
+    @Operation(summary = "Buscar Fornecedor pelo ID", description = "Retorna um Fornecedor filtrado por ID")
+    @GetMapping("/buscar/{id}")
+    public ResponseEntity<FornecedorResponse> buscarFornecedorPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(buscarFornecedorPorIdUseCase.execute(id));
     }
 
     @PutMapping("/{id}")
