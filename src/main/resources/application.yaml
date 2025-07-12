@@ -1,6 +1,7 @@
 spring:
   application:
     name: fornecedor-service
+# Configuracao do banco de dados
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:fornecedor_db}${DB_URL_PARAM:?ssl=false}
     username: ${DATABASE_USERNAME:postgres}
@@ -13,14 +14,17 @@ spring:
         generate-ddl: true
         ddl-auto: update
 
+# Flyway (ativado)
   flyway:
     enabled: true
     locations: classpath:db/migration
 
+# Configuracao do servidor
 server:
   port: 8084
   error:
     include-stacktrace: never
 
+# Configuracao Swagger
 springdoc:
   swagger-ui.path: /api/swagger-ui.html
